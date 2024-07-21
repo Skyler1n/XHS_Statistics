@@ -25,11 +25,12 @@ if __name__ == "__main__":
             ws.title = "视频数据"
 
             # 定义表头
-            headers = ["视频标题", "发布日期", "观看量", "人均观看时长", "点赞量", "收藏数", "评论数", "弹幕数", "分享数", "直接涨粉数"]
+            headers = ["作品名称", "发布时间", "审核状态", "观看量", "人均观看时长", "点赞量", "收藏数", "评论数", "分享数", "直接涨粉数", "弹幕数"]
             ws.append(headers)
 
             # 正则表达式，用于匹配数据
             title_pattern = re.compile(r'<span data-v-70715371="" class="title">(.*?)</span>')
+            permission_pattern = re.compile(r'class="play">(.*?)</div> <div data-v-70715371="" class="info-text"><span data-v-70715371="" class="title">')
             publish_time_pattern = re.compile(r'<span data-v-70715371="" class="publish-time">.*?(\d{4}-\d{2}-\d{2})</span>')
             watch_count_pattern = re.compile(r'<label data-v-70715371="">观看量</label> <b data-v-70715371="" class="align-text">(.*?)</b>')
             avg_watch_time_pattern = re.compile(r'<label data-v-70715371="">人均观看时长</label> <b data-v-70715371="">(.*?)</b>')
@@ -45,6 +46,7 @@ if __name__ == "__main__":
                 content = file.read()
 
            # 查找所有匹配的数据
+            permissions = permission_pattern.findall(content)
             titles = title_pattern.findall(content)
             publish_times = publish_time_pattern.findall(content)
             watch_counts = watch_count_pattern.findall(content)
@@ -56,21 +58,27 @@ if __name__ == "__main__":
             share_counts = share_count_pattern.findall(content)
             direct_fans_counts = direct_fans_count_pattern.findall(content)
 
-# 将找到的数据汇总到Excel中
-for i in range(len(titles)):
-    ws.append([
-        titles[i], publish_times[i], watch_counts[i], avg_watch_times[i],
-        like_counts[i], favorite_counts[i], comment_counts[i], danmu_counts[i],
-        share_counts[i], direct_fans_counts[i]
-    ])
+            # 处理审查状态
+            for i in range(len(permissions)):
+                if permissions[i] == " <!---->":
+                    permissions[i] = "公开"
+                else:
+                    permissions[i] = "仅自己可见"
 
+            # 将找到的数据汇总到Excel中
+            for i in range(len(titles)):
+                ws.append([
+                    titles[i], publish_times[i], permissions[i], watch_counts[i], avg_watch_times[i],
+                    like_counts[i], favorite_counts[i], comment_counts[i],share_counts[i], 
+                    direct_fans_counts[i], danmu_counts[i]
+                ])
 
             # 构建Excel文件名
-excel_file_name = f"{date_str}_video_data.xlsx"
-excel_file_path = os.path.join(desktop_path, excel_file_name)
+            excel_file_name = f"{date_str}_video_data.xlsx"
+            excel_file_path = os.path.join(desktop_path, excel_file_name)
 
             # 保存Excel文件到桌面
-wb.save(excel_file_path)
+            wb.save(excel_file_path)
 
             # 打印日志提醒用户成功导出文件
-print(f"文件已成功导出至桌面: '{excel_file_path}'。")
+            print(f"文件已成功导出至桌面: '{excel_file_path}'。")
