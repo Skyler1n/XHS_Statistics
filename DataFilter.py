@@ -10,7 +10,7 @@ date_str = now.strftime('%Y%m%d%H%M')
 # 获取桌面路径
 desktop_path = os.path.join(os.environ['USERPROFILE'], 'Desktop')
 
-# 修改代码以接收拖放的文件名
+# 接收拖放的文件名
 if __name__ == "__main__":
     import sys
     # 检查是否有文件参数传入
@@ -45,18 +45,27 @@ if __name__ == "__main__":
             with open(txt_file_path, 'r', encoding='utf-8') as file:
                 content = file.read()
 
+
+            # 转换包含“万”的字符串为数字
+            def convert_to_number(text):
+                if '万' in text:
+                    # 去掉'万'并转换为数字
+                    return int(float(text.replace('万', '')) * 10000)
+                else:
+                    return int(text)
+
            # 查找所有匹配的数据
             permissions = permission_pattern.findall(content)
             titles = title_pattern.findall(content)
             publish_times = publish_time_pattern.findall(content)
-            watch_counts = watch_count_pattern.findall(content)
+            watch_counts = [convert_to_number(count) for count in watch_count_pattern.findall(content)]
             avg_watch_times = avg_watch_time_pattern.findall(content)
-            like_counts = like_count_pattern.findall(content)
-            favorite_counts = favorite_count_pattern.findall(content)
-            comment_counts = comment_count_pattern.findall(content)
-            danmu_counts = danmu_count_pattern.findall(content)
-            share_counts = share_count_pattern.findall(content)
-            direct_fans_counts = direct_fans_count_pattern.findall(content)
+            like_counts = [convert_to_number(count) for count in like_count_pattern.findall(content)]
+            favorite_counts = [convert_to_number(count) for count in favorite_count_pattern.findall(content)]
+            comment_counts = [convert_to_number(count) for count in comment_count_pattern.findall(content)]
+            danmu_counts = [convert_to_number(count) for count in danmu_count_pattern.findall(content)]
+            share_counts = [convert_to_number(count) for count in share_count_pattern.findall(content)]
+            direct_fans_counts = [convert_to_number(count) for count in direct_fans_count_pattern.findall(content)]
 
             # 处理审查状态
             for i in range(len(permissions)):

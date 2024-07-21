@@ -2,7 +2,7 @@
 VSVersionInfo(
   ffi=FixedFileInfo(
 #filevers和prodvers应该始终是包含四个项的元组：（1、2、3、4）,将不需要的项设置为0
-filevers=(3, 0, 0, 0),  # 文件版本******，鼠标悬浮exe会显示，也显示在 详细信息-文件版本,这个是检测版本的依据
+filevers=(3, 1, 0, 0),  # 文件版本******，鼠标悬浮exe会显示，也显示在 详细信息-文件版本,这个是检测版本的依据
 prodvers=(4, 6, 9, 4), # 生产商，未见显示在哪里
 mask=0x3f, # 两个位掩码
 flags=0x0,
@@ -23,7 +23,7 @@ StringFileInfo(
     StringStruct(u'LegalCopyright', u'NaN'), #版权，会显示在 详细信息-版权
     StringStruct(u'OriginalFilename', u'catch-xhs-skl'), #原始文件名，会显示在 详细信息-原始文件名
     StringStruct(u'ProductName', u'小红书后台数据统计工具'),      #产品名称，会显示在 详细信息-产品名称
-    StringStruct(u'ProductVersion', u'3.0.0.0')])    #产品版本，会显示在 详细信息-产品版本
+    StringStruct(u'ProductVersion', u'3.1.0.0')])    #产品版本，会显示在 详细信息-产品版本
   ]),
 VarFileInfo([VarStruct(u'Translation', [2052, 1200])]) # 语言，中文简体
   ]
