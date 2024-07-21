@@ -2,6 +2,8 @@ import re
 from openpyxl import Workbook
 import os
 import datetime
+import tkinter as tk
+from tkinter import messagebox
 
 # 获取系统当前日期和时间
 now = datetime.datetime.now()
@@ -86,8 +88,15 @@ if __name__ == "__main__":
             excel_file_name = f"{date_str}_video_data.xlsx"
             excel_file_path = os.path.join(desktop_path, excel_file_name)
 
+            # 创建一个显示弹窗的函数
+            def show_export_message(excel_file_path):
+                # 创建一个Tk窗口，但不显示
+                root = tk.Tk()
+                root.withdraw()  # 隐藏主窗口
+
+                # 显示弹窗
+                messagebox.showinfo("导出完成", f"已导出文件到{excel_file_path}")
+
             # 保存Excel文件到桌面
             wb.save(excel_file_path)
-
-            # 打印日志提醒用户成功导出文件
-            print(f"文件已成功导出至桌面: '{excel_file_path}'。")
+            show_export_message(excel_file_path)
