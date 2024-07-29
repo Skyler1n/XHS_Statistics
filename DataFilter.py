@@ -97,12 +97,12 @@ if __name__ == "__main__":
     tk.Checkbutton(tab_popup, text="导出成功后弹窗提示", variable=show_popup_var).pack(fill="x", padx=5, pady=5)
 
     # 作者信息选项卡
-    tk.Label(tab_about, text="软件版本：V4.0").pack(padx=5, pady=5)
+    tk.Label(tab_about, text="软件版本：V4.1").pack(padx=5, pady=5)
     tk.Label(tab_about, text="软件编写：Skyler1n").pack(padx=5, pady=5)
 
     # 更新日志按钮
     def show_changelog():
-        changelog = """ V1.0：实现基本功能。\n V2.0：实现txt拖拽到程序直接生成xls。\n V3.0：增加审核状态。\n V3.1：将XX换成纯数字以方便统计。\n V3.2：增加xls导出成功提示。\n V4.0：全新GUI界面，支持设置导出路径和是否进行弹窗。\n"""
+        changelog = """ V1.0：实现基本功能。\n V2.0：实现txt拖拽到程序直接生成xls。\n V3.0：增加审核状态。\n V3.1：将XX换成纯数字以方便统计。\n V3.2：增加xls导出成功提示。\n V4.0：全新GUI界面，支持设置导出路径和是否进行弹窗。\n V4.1：修复因小红书前端更新导致正则表达式无法匹配的问题（240729）。\n"""
         messagebox.showinfo("更新日志", changelog)
 
     tk.Button(tab_about, text="更新日志", command=show_changelog).pack(padx=5, pady=5)
@@ -130,17 +130,17 @@ if __name__ == "__main__":
             ws.append(headers)
 
             # 正则表达式，用于匹配数据
-            title_pattern = re.compile(r'<span data-v-70715371="" class="title">(.*?)</span>')
-            permission_pattern = re.compile(r'class="play">(.*?)</div> <div data-v-70715371="" class="info-text"><span data-v-70715371="" class="title">')
-            publish_time_pattern = re.compile(r'<span data-v-70715371="" class="publish-time">.*?(\d{4}-\d{2}-\d{2})</span>')
-            watch_count_pattern = re.compile(r'<label data-v-70715371="">观看量</label> <b data-v-70715371="" class="align-text">(.*?)</b>')
-            avg_watch_time_pattern = re.compile(r'<label data-v-70715371="">人均观看时长</label> <b data-v-70715371="">(.*?)</b>')
-            like_count_pattern = re.compile(r'<label data-v-70715371="">点赞量</label> <b data-v-70715371="" class="align-text">(.*?)</b>')
-            favorite_count_pattern = re.compile(r'<label data-v-70715371="">收藏数</label> <b data-v-70715371="" class="align-text">(.*?)</b>')
-            comment_count_pattern = re.compile(r'<label data-v-70715371="">评论数</label> <b data-v-70715371="" class="align-text-m">(.*?)</b>')
-            danmu_count_pattern = re.compile(r'<label data-v-70715371="">弹幕数</label> <b data-v-70715371="" class="align-text-m">(.*?)</b>')
-            share_count_pattern = re.compile(r'<label data-v-70715371="">分享数</label> <b data-v-70715371="" class="align-text-m">(.*?)</b>')
-            direct_fans_count_pattern = re.compile(r'<label data-v-70715371="">直接涨粉数</label> <b data-v-70715371="">(.*?)</b>')
+            title_pattern = re.compile(r'<span data-v-27528cc6="" class="title">(.*?)</span>')
+            permission_pattern = re.compile(r'class="play">(.*?)</div> <div data-v-27528cc6="" class="info-text"><span data-v-27528cc6="" class="title">')
+            publish_time_pattern = re.compile(r'<span data-v-27528cc6="" class="publish-time">.*?(\d{4}-\d{2}-\d{2})</span>')
+            watch_count_pattern = re.compile(r'<label data-v-27528cc6="">观看量</label> <b data-v-27528cc6="" class="align-text">(.*?)</b>')
+            avg_watch_time_pattern = re.compile(r'<label data-v-27528cc6="">人均观看时长</label> <b data-v-27528cc6="">(.*?)</b>')
+            like_count_pattern = re.compile(r'<label data-v-27528cc6="">点赞量</label> <b data-v-27528cc6="" class="align-text">(.*?)</b>')
+            favorite_count_pattern = re.compile(r'<label data-v-27528cc6="">收藏数</label> <b data-v-27528cc6="" class="align-text">(.*?)</b>')
+            comment_count_pattern = re.compile(r'<label data-v-27528cc6="">评论数</label> <b data-v-27528cc6="" class="align-text-m">(.*?)</b>')
+            danmu_count_pattern = re.compile(r'<label data-v-27528cc6="">弹幕数</label> <b data-v-27528cc6="" class="align-text-m">(.*?)</b>')
+            share_count_pattern = re.compile(r'<label data-v-27528cc6="">分享数</label> <b data-v-27528cc6="" class="align-text-m">(.*?)</b>')
+            direct_fans_count_pattern = re.compile(r'<label data-v-27528cc6="">直接涨粉数</label> <b data-v-27528cc6="">(.*?)</b>')
 
             # 读取txt文件
             with open(txt_file_path, 'r', encoding='utf-8') as file:
